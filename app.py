@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "<p>I'm a little piggy</p>"
+    return render_template('index.html')
 
 @app.route('/pug')
 def pug():
