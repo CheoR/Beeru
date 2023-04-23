@@ -5,17 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>
-        {% block title %}
-        {% endblock title %} 
-        BeerU
-    </title>
+    {% block title %}
+    {% endblock title %} 
+    BeerU
+  </title>
 </head>
-<body class="box-border bg-green-50">
+<body class="
+  flex
+  flex-col
+  bg-teal-50
+  box-border
+  min-h-screen
+">
     {% include '_navbar.html' %}
-    <div>
-        {% block content %}
-        {% endblock content %}
+    <div class="
+      flex-1
+      p-4
+    ">
+      {% block content %}
+      {% endblock content %}
     </div>
-    {% include 'footer.html' %}
+    {% include '_footer.html' %}
 </body>
 </html>
