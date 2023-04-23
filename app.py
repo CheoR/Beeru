@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, url_for
 from markupsafe import escape
 
 app = Flask(__name__)
+app.jinja_env.auto_reload = True
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route('/')
 def index():
