@@ -7,11 +7,15 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', route="home")
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', route="about")
+
+@app.route('/beers')
+def beer():
+    return render_template('beers.html', route="beers")
 
 @app.route('/pug')
 def pug():
