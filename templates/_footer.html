@@ -1,8 +1,30 @@
-<div id="footer">
-  {% block footer %}
-  <div class="text-center bg-blue-300 p-2">
-      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
+<div class="
+  bg-teal-200
+  py-2
+  md:flex
+  md:py-4
+  ">
+  <div class="
+    flex
+    flex-1
+    h-8
+    items-center
+    justify-center
+  ">
+      <span><a
+        aria-label="To GitHub Profile"
+        href="https://github.com/CheoR"
+        rel="noreferrer"
+        target="_blank">&copy; 2023 CheoR</a><span>
+  </div>
+    <div class="
+    flex-1
+    flex
+    justify-center
+    ">
+      {% include '/icons/linkedIn.html' %}
+      {% include '/icons/github.html' %}
+      {% include '/icons/website.html' %}
   </div>
 
-  {% endblock %}
 </div>
