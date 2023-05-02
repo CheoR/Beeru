@@ -10,8 +10,10 @@
     py-2
     rounded-t-md
   ">Add your review</p>
-  <select name="" id="">
-    <option value="">option1</option>
+  <select name="selection">
+    {% for op in data %}
+      <option value={{op.name}}>{{op.name}}</option>
+    {% endfor %}
   </select>
   <textarea name="" id="" placeholder="Comment"
     class="

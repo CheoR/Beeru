@@ -5,9 +5,16 @@ app = Flask(__name__)
 app.jinja_env.auto_reload = True
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+DATA = [
+    {"name": "Beer1", "flavor": "bold"},
+    {"name": "Beer2", "flavor": "flat"},
+    {"name": "Beer3", "flavor": "nutty"},
+    {"name": "Beer4", "flavor": "hoppy"},
+]
+
 @app.route('/')
 def index():
-    return render_template('index.html', route="home")
+    return render_template('index.html', route="home", data=DATA )
 
 @app.route('/about')
 def about():

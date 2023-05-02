@@ -10,6 +10,8 @@
         <p>
           Beer review and recommendations.
         </p>
-        {% include '/components/forms/review.html' %}
+        {% with data=data %}
+            {% include '/components/forms/review.html' %}
+        {% endwith %}
     </div>
 {% endblock content %}
