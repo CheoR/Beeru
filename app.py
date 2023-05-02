@@ -17,6 +17,10 @@ def about():
 def beer():
     return render_template('beers.html', route="beers")
 
+@app.errorhandler(404)
+def page_not_found(err):
+    return render_template('404.html'), 404
+
 @app.route('/pug')
 def pug():
     return "<p>PUG</p>"

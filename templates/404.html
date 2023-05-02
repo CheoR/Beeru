@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    404
+{% endblock title %}
+
+{% block content %}
+    <div class="
+        flex
+        h-96
+        items-center
+        justify-center
+    ">
+        <p class="
+            font-semibold
+            md:text-lg
+        ">
+          Page not Found
+        </p>
+        <div class="rotate-90">
+            {% include "icons/beer.html" %}
+        </div>
+    </div>
+{% endblock content %}
