@@ -12,9 +12,16 @@ DATA = [
     {"name": "Beer4", "flavor": "hoppy"},
 ]
 
+REVIEW = [
+    { "user": "user1", "review": "Beer1 is ", "stars": 5},
+    { "user": "user2", "review": "Beer2 was ", "stars": 1},
+    { "user": "user3", "review": "Beer3 yup", "stars": 3},
+    { "user": "user4", "review": "Beer4 i like ", "stars": 1},
+]
+
 @app.route('/')
 def index():
-    return render_template('index.html', route="home", data=DATA )
+    return render_template('index.html', route="home", data=DATA, review=REVIEW )
 
 @app.route('/about')
 def about():
