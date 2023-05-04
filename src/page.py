@@ -23,15 +23,15 @@ bp = Blueprint('page', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('index.html', route="home", data=DATA, review=REVIEW )
+    return render_template('page/index.html', route="home", data=DATA, review=REVIEW )
 
 @bp.route('/about')
 def about():
-    return render_template('about.html', route="about")
+    return render_template('page/about.html', route="about")
 
 @bp.route('/beers')
 def beer():
-    return render_template('beers.html', route="beers")
+    return render_template('page/beers.html', route="beers")
 
 @bp.app_errorhandler(404)
 def page_not_found(err):
