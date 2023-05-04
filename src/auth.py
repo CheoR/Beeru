@@ -30,6 +30,11 @@ def login_required(view):
 
     return wrapped_view
 
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
