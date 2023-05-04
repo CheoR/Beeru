@@ -1,0 +1,60 @@
+<div>
+    <div>
+      <p class="
+              justify-items-center
+              py-2
+              rounded-t-md
+            ">
+        Default Beer
+      </p>
+      <p>
+        8 reviews (3.6 average rating)
+      </p>
+    </div>
+  <p>
+    Recent Reviews
+  </p>
+  <div class="
+        flex
+        flex-wrap
+        gap-4
+        items-center
+        justify-items-center
+      ">
+    {% for rv in reviews %}
+    <div class="
+          flex
+          flex-col
+          p-2
+          rounded-md
+          w-96
+          h-32
+        ">
+      <p>{{rv.title}}</p>
+      <p>
+        Rated {{rv.rating}} of 5 by {{rv.username}}
+      </p>
+      <p class="truncate">
+        {{rv.comment}}
+      </p>
+      {% if rv.comment|length %}
+        <a href="review/{{rv.review_id}}" class="
+          block
+          duration-300
+          hover:bg-teal-500
+          hover:font-semibold
+          hover:text-white
+          p-2
+          rounded-md
+          text-sm
+          transition
+          w-24
+          {{'bg-teal-500 text-white' if route == 'beers' else ''}}
+        ">
+          Read More
+        </a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>

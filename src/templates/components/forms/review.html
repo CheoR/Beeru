@@ -4,43 +4,6 @@
   gap-4
   w-full
 " >
-  <div>
-    <p class="
-          justify-items-center
-          py-2
-          rounded-t-md
-        ">
-      Default Beer
-    </p>
-    <p>
-      8 reviews (3.6 average rating)
-    </p>
-    <div>
-      <p>
-        Recent Reviews
-      </p>
-      <div class="
-        flex gap-4
-        flex-wrap
-      ">
-        {% for rv in review %}
-        <div class="
-          flex
-          flex-col
-          p-2
-          rounded-md
-          min-w-fit
-        ">
-          <p>{{rv.review}}</p>
-          <p>
-            Rated {{rv.stars}} of 5 by {{rv.user}}
-          </p>
-          <a href="#">Read More</a>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
   <div class="flex flex-col">
     <p class="
       justify-items-center
