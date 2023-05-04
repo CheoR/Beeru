@@ -4,6 +4,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
+from src.db import get_db
+
 DATA = [
     {"name": "Beer1", "flavor": "bold"},
     {"name": "Beer2", "flavor": "flat"},
@@ -11,19 +13,22 @@ DATA = [
     {"name": "Beer4", "flavor": "hoppy"},
 ]
 
-REVIEW = [
-    { "user": "user1", "review": "Beer1 is ", "stars": 5},
-    { "user": "user2", "review": "Beer2 was ", "stars": 1},
-    { "user": "user3", "review": "Beer3 yup", "stars": 3},
-    { "user": "user4", "review": "Beer4 i like ", "stars": 1},
-]
-
 bp = Blueprint('page', __name__)
 
 
 @bp.route('/')
 def index():
-    return render_template('page/index.html', route="home", data=DATA, review=REVIEW )
+    db = get_db()
+    reviews = db.execute("""
+    SELECT b.name as beer, u.username, r.title, r.comment, r.rating
+    FROM review as r
+    INNER JOIN user as u
+    ON u.id == r.author_id
+    INNER JOIN beer as b
+    ON r.beer_id == b.id
+    LIMIT 12;
+    """).fetchall()
+    return render_template('page/index.html', route="home", data=DATA, reviews=reviews )
 
 @bp.route('/about')
 def about():
