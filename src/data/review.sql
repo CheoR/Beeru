@@ -324,7 +324,7 @@ insert into review (id, author_id, beer_id, title, comment, rating) values (205,
 insert into review (id, author_id, beer_id, title, comment, rating) values (206, 322, 514, 'In hac habitasse platea dictumst.', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
 
 Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 5);
-insert into review (id, author_id, beer_id, title, comment, rating) values (207, null, 487, 'Aliquam erat volutpat.', '', 5);
+insert into review (id, author_id, beer_id, title, comment, rating) values (207, 54, 487, 'Aliquam erat volutpat.', '', 5);
 insert into review (id, author_id, beer_id, title, comment, rating) values (208, 72, 346, 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 3);
 insert into review (id, author_id, beer_id, title, comment, rating) values (209, 304, 165, 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.', '', 5);
 insert into review (id, author_id, beer_id, title, comment, rating) values (210, 748, 122, 'Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 1);
@@ -893,7 +893,7 @@ insert into review (id, author_id, beer_id, title, comment, rating) values (566,
 
 Sed ante. Vivamus tortor. Duis mattis egestas metus.', 2);
 insert into review (id, author_id, beer_id, title, comment, rating) values (567, 412, 97, 'Vestibulum rutrum rutrum neque.', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 2);
-insert into review (id, author_id, beer_id, title, comment, rating) values (568, null, 524, 'Morbi a ipsum.', '', 2);
+insert into review (id, author_id, beer_id, title, comment, rating) values (568, 22, 524, 'Morbi a ipsum.', '', 2);
 insert into review (id, author_id, beer_id, title, comment, rating) values (569, 714, 79, 'Donec ut mauris eget massa tempor convallis.', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
 
 Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 2);
