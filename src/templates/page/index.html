@@ -6,13 +6,8 @@
 
 {% block content %}
     <div>
-        <!-- <h1 class="text-center">Index</h1> -->
-        <p>
-          Beer review and recommendations.
-        </p>
         {% with data=data, reviews=reviews %}
             {% include '/components/_reviews.html' %}
-            {% include '/components/forms/review.html' %}
         {% endwith %}
     </div>
 {% endblock content %}
