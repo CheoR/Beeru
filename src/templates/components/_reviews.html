@@ -30,14 +30,14 @@
           w-96
           h-32
         ">
-      <p>{{rv.title}}</p>
+      <p class="truncate">{{rv.title}}</p>
       <p>
         Rated {{rv.rating}} of 5 by {{rv.username}}
       </p>
       <p class="truncate">
         {{rv.comment}}
       </p>
-      {% if rv.comment|length %}
+      {% if rv.comment %}
         <a href="review/{{rv.review_id}}" class="
           block
           duration-300
