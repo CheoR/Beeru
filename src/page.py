@@ -6,15 +6,8 @@ from flask import (
 
 from src.db import get_db
 
-DATA = [
-    {"name": "Beer1", "flavor": "bold"},
-    {"name": "Beer2", "flavor": "flat"},
-    {"name": "Beer3", "flavor": "nutty"},
-    {"name": "Beer4", "flavor": "hoppy"},
-]
 
 bp = Blueprint('page', __name__)
-
 
 @bp.route('/')
 def index():
@@ -23,12 +16,22 @@ def index():
     SELECT b.name as beer, u.username, r.title, r.comment, r.rating
     FROM review as r
     INNER JOIN user as u
-    ON u.id == r.author_id
+        ON u.id == r.author_id
     INNER JOIN beer as b
-    ON r.beer_id == b.id
+        ON r.beer_id == b.id
     LIMIT 12;
     """).fetchall()
-    return render_template('page/index.html', route="home", data=DATA, reviews=reviews )
+
+    beers = db.execute("""
+    SELECT b.id, b.name, b.description, b.number_of_review, b.total_rating, u.username, r.title, r.comment, r.rating, r.created
+    FROM review as r
+    INNER JOIN user as u
+        ON u.id == r.author_id
+    INNER JOIN beer as b
+        ON r.beer_id == b.id
+    GROUP BY b.id;
+    """).fetchall()
+    return render_template('page/index.html', route="home", data=beers, reviews=reviews )
 
 @bp.route('/about')
 def about():
