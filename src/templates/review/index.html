@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Reviews
+{% endblock title %}
+
+{% block content %}
+<div>
+  {% with data=data, reviews=reviews %}
+  {% include '/components/forms/review.html' %}
+  {% include '/components/_reviews.html' %}
+  {% endwith %}
+</div>
+{% endblock content %}

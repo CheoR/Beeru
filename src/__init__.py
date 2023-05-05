@@ -32,4 +32,8 @@ def create_app(test_config=None):
     app.register_blueprint(page.bp)
     app.add_url_rule('/', endpoint='index')
 
+    from . import review
+    app.register_blueprint(review.bp)
+    app.add_url_rule('/', endpoint='review')
+
     return app
