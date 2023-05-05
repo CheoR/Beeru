@@ -36,12 +36,26 @@ def get_review(id, check_author=True):
 @login_required
 def index():
     db = get_db()
+
     reviews = db.execute("""
-        SELECT r.id, r.title, r.comment, r.created, r.rating, author_id, username
+        SELECT r.id, r.title, r.comment, r.created, r.rating, u.username
         FROM review r
         JOIN user u
-        ON r.author_id = u.id
+            ON r.author_id = u.id
+		WHERE u.id = ?
         ORDER BY created DESC;
-    """
+    """,
+    (g.user['id'],)
     ).fetchall()
-    return render_template('review/index.html', route="reviews", reviews=reviews)
+
+    beers = db.execute("""
+    SELECT b.id, b.name, b.description, b.number_of_review, b.total_rating, u.username, r.title, r.comment, r.rating, r.created
+    FROM review as r
+    INNER JOIN user as u
+        ON u.id == r.author_id
+    INNER JOIN beer as b
+        ON r.beer_id == b.id
+    GROUP BY b.id;
+    """).fetchall()
+
+    return render_template('review/index.html', route="reviews", beers=beers, reviews=reviews)

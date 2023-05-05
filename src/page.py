@@ -31,7 +31,7 @@ def index():
         ON r.beer_id == b.id
     GROUP BY b.id;
     """).fetchall()
-    return render_template('page/index.html', route="home", data=beers, reviews=reviews )
+    return render_template('page/index.html', route="home", beers=beers, reviews=reviews )
 
 @bp.route('/about')
 def about():

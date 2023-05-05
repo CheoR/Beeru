@@ -6,7 +6,7 @@
 
 {% block content %}
     <div>
-        {% with data=data, featured=data|random, reviews=reviews %}
+        {% with beers=beers, featured=beers|random, reviews=reviews %}
             {% include '/components/_featured.html' %}
             {% include '/components/_reviews.html' %}
         {% endwith %}
