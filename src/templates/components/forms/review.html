@@ -13,8 +13,8 @@
       Add your review
     </p>
     <select name="selection">
-      {% for op in data %}
-        <option value={{op.name}}>{{op.name}}</option>
+      {% for beer in beers %}
+        <option value={{beer.id}}>{{beer.name}}</option>
       {% endfor %}
     </select>
     <textarea name="" id="" placeholder="Comment"
