@@ -1,0 +1,30 @@
+<div>
+  <div>
+    <p>
+      Featured
+    </p>
+  </div>
+  <p>
+    <a href="/reviews/{{featured.id}}" class="
+                      block
+            duration-300
+            hover:bg-teal-500
+            hover:font-semibold
+            hover:text-white
+            p-2
+            rounded-md
+            text-sm
+            transition
+            {{'bg-teal-500 text-white' if route == 'reviews' else ''}}
+
+    ">
+      {{ featured.name }}
+    </a>
+  </p>
+  <p>
+    {{ featured.number_of_review }} reviews ({{ '%0.1f'| format(featured.number_of_review/featured.total_rating|float) }} average rating)
+  </p>
+  <p>
+    {{ featured.description }}
+  </p>
+</div>
