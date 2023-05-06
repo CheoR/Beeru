@@ -16,14 +16,16 @@
             p-2
             rounded-md
             w-96
-            h-32
+            h-36
+            bg-blue-300
           ">
         <p class="truncate">{{rv.title}}</p>
+        <span>Reviewed: {{rv.created.strftime('%Y-%m-%d')}}</span>
         <p>
           Rated {{rv.rating}} of 5 by {{rv.username}}
         </p>
         <p class="truncate">
-          {{rv.comment}}
+          {{ rv.comment }}
         </p>
         {% if rv.comment %}
           <a href="review/{{rv.review_id}}" class="

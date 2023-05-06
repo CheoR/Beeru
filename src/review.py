@@ -32,10 +32,32 @@ def get_review(id, check_author=True):
 
     return review
 
-@bp.route('/')
+@bp.route('/', methods=('GET', 'POST'))
 @login_required
 def index():
     db = get_db()
+
+    if request.method == 'POST':
+        beer_id = int(request.form['selection'])
+        title = request.form['title']
+        comment = request.form['comment']
+        rating = request.form['rating']
+        error = None
+
+        if not title:
+            error = 'Title required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'INSERT INTO review (title, comment, beer_id, author_id, rating)'
+                ' VALUES (?, ?, ?, ?, ?)',
+                (title, comment, beer_id, g.user['id'], rating)
+            )
+            db.commit()
+            return redirect(url_for('review.index'))
 
     reviews = db.execute("""
         SELECT r.id, r.title, r.comment, r.created, r.rating, u.username
@@ -43,7 +65,7 @@ def index():
         JOIN user u
             ON r.author_id = u.id
 		WHERE u.id = ?
-        ORDER BY created DESC;
+        ORDER BY r.created DESC;
     """,
     (g.user['id'],)
     ).fetchall()
