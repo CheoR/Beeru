@@ -13,7 +13,7 @@ bp = Blueprint('page', __name__)
 def index():
     db = get_db()
     reviews = db.execute("""
-    SELECT b.name as beer, u.username, r.title, r.comment, r.rating, r.created
+    SELECT r.id, b.name as beer, u.username, r.title, r.comment, r.rating, r.created, r.author_id
     FROM review as r
     INNER JOIN user as u
         ON u.id == r.author_id

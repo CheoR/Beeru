@@ -11,7 +11,7 @@ bp = Blueprint('review', __name__, url_prefix="/review")
 
 def get_review(id, check_author=True):
     review = get_db().execute("""
-            SELECT r.id, r.title, r.comment, r.created, r.rating, author_id, username
+            SELECT r.id, r.title, r.comment, r.created, r.rating, r.author_id, u.username
             FROM review r
             JOIN user u
             ON r.author_id = u.id
@@ -60,7 +60,7 @@ def index():
             return redirect(url_for('review.index'))
 
     reviews = db.execute("""
-        SELECT r.id, r.title, r.comment, r.created, r.rating, u.username
+        SELECT r.id, r.title, r.comment, r.created, r.rating, u.username, r.author_id
         FROM review r
         JOIN user u
             ON r.author_id = u.id
