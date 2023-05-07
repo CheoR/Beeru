@@ -11,13 +11,14 @@
       ">
     {% for rv in reviews %}
       <div class="
+            bg-teal-200
             flex
             flex-col
+            h-40
             p-2
+            justify-between
             rounded-md
             w-96
-            h-36
-            bg-blue-300
           ">
         <p class="truncate">{{rv.title}}</p>
         <span>Reviewed: {{rv.created.strftime('%Y-%m-%d')}}</span>
