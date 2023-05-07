@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Update "{{ review['title'] }}"
+{% endblock title %}
+
+{% block content %}
+  <div>
+    {% with review=review %}
+      {% include '/components/forms/review.html' %}
+    {% endwith %}
+  </div>
+{% endblock content %}

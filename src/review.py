@@ -82,3 +82,32 @@ def index():
 
     return render_template('review/index.html', route="review", beers=beers, reviews=reviews)
 
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+def update(id):
+    review = get_review(id)
+
+    if request.method == 'POST':
+        title = request.form['title']
+        comment = request.form['comment']
+        rating = request.form['rating']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute("""
+                    UPDATE review
+                    SET title = ?, comment = ?, rating = ?
+                    WHERE id = ?
+                """,
+                (title, comment, rating, id)
+            )
+            db.commit()
+            return redirect(url_for('review.index'))
+
+    return render_template('review/update.html', review=review)

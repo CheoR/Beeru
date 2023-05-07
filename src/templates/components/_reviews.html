@@ -9,7 +9,7 @@
         items-center
         justify-items-center
       ">
-    {% for rv in reviews %}
+    {% for review in reviews %}
       <div class="
             bg-teal-200
             flex
@@ -20,16 +20,16 @@
             rounded-md
             w-96
           ">
-        <p class="truncate">{{rv.title}}</p>
-        <span>Reviewed: {{rv.created.strftime('%Y-%m-%d')}}</span>
+        <p class="truncate">{{review.title}}</p>
+        <span>Reviewed: {{review.created.strftime('%Y-%m-%d')}}</span>
         <p>
-          Rated {{rv.rating}} of 5 by {{rv.username}}
+          Rated {{review.rating}} of 5 by {{review.username}}
         </p>
         <p class="truncate">
-          {{ rv.comment }}
+          {{ review.comment }}
         </p>
-        {% if rv.comment %}
-          <a href="review/{{rv.review_id}}" class="
+        {% if review.comment %}
+          <a href="review/{{review.id}}" class="
             block
             duration-300
             hover:bg-teal-500
@@ -45,7 +45,13 @@
             Read More
           </a>
         {% endif %}
+        {% if g.user['id'] == review.author_id %}
+        <form class="rounded-md w-24" action="{{ url_for('review.update', id=review['id']) }}" method="POST">
+          <input class="rounded-md w-full bg-red-300" type="submit" value="Update">
+        </form>
+        {% endif %}
       </div>
     {% endfor %}
+
   </div>
 </div>
