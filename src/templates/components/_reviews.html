@@ -46,9 +46,14 @@
           </a>
         {% endif %}
         {% if g.user['id'] == review.author_id %}
-        <form class="rounded-md w-24" action="{{ url_for('review.update', id=review['id']) }}" method="POST">
-          <input class="rounded-md w-full bg-red-300" type="submit" value="Update">
-        </form>
+          <div class="flex flex-wrap justify-around">
+            <form class="rounded-md w-24" action="{{ url_for('review.delete', id=review['id']) }}" method="POST">
+              <input class="rounded-md w-full bg-red-300" type="submit" value="Delete">
+            </form>
+            <form class="rounded-md w-24" action="{{ url_for('review.update', id=review['id']) }}" method="POST">
+              <input class="rounded-md w-full bg-green-300" type="submit" value="Update">
+            </form>
+          </div>
         {% endif %}
       </div>
     {% endfor %}

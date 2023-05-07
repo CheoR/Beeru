@@ -111,3 +111,12 @@ def update(id):
             return redirect(url_for('review.index'))
 
     return render_template('review/update.html', review=review)
+
+@bp.route('/<int:id>/delete', methods=('POST',))
+@login_required
+def delete(id):
+    get_review(id)
+    db = get_db()
+    db.execute('DELETE FROM review WHERE id = ?', (id,))
+    db.commit()
+    return redirect(url_for('review.index'))
