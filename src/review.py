@@ -7,7 +7,7 @@ from flask import (
 from src.auth import login_required
 from src.db import get_db
 
-bp = Blueprint('review', __name__, url_prefix="/reviews")
+bp = Blueprint('review', __name__, url_prefix="/review")
 
 def get_review(id, check_author=True):
     review = get_db().execute("""
@@ -80,4 +80,5 @@ def index():
     GROUP BY b.id;
     """).fetchall()
 
-    return render_template('review/index.html', route="reviews", beers=beers, reviews=reviews)
+    return render_template('review/index.html', route="review", beers=beers, reviews=reviews)
+
