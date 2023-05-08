@@ -11,13 +11,9 @@ bp = Blueprint('review', __name__, url_prefix="/review")
 
 def get_review(id, check_author=True):
     review = get_db().execute("""
-        SELECT  r.id, r.title, r.comment, r.created, r.rating, r.author_id, u.username, b.id, b.name
-        FROM review r
-        JOIN beer b
-            ON b.id = r.beer_id
-        JOIN user u
-            ON r.author_id = u.id
-        WHERE u.id = ?;
+        SELECT *
+        FROM review
+        WHERE review.id = ?;
     """,
         (id,)
     ).fetchone()
@@ -69,7 +65,7 @@ def index(): # create
 		WHERE u.id = ?
         ORDER BY r.created DESC;
     """,
-    (g.user['id'],)
+        (g.user['id'],)
     ).fetchall()
 
     beers = db.execute("""
