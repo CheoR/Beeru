@@ -11,12 +11,14 @@ bp = Blueprint('review', __name__, url_prefix="/review")
 
 def get_review(id, check_author=True):
     review = get_db().execute("""
-            SELECT r.id, r.title, r.comment, r.created, r.rating, r.author_id, u.username
-            FROM review r
-            JOIN user u
+        SELECT  r.id, r.title, r.comment, r.created, r.rating, r.author_id, u.username, b.id, b.name
+        FROM review r
+        JOIN beer b
+            ON b.id = r.beer_id
+        JOIN user u
             ON r.author_id = u.id
-            WHERE u.id = ?;
-        """,
+        WHERE u.id = ?;
+    """,
         (id,)
     ).fetchone()
 
@@ -34,7 +36,7 @@ def get_review(id, check_author=True):
 
 @bp.route('/', methods=('GET', 'POST'))
 @login_required
-def index():
+def index(): # create
     db = get_db()
 
     if request.method == 'POST':
@@ -71,13 +73,13 @@ def index():
     ).fetchall()
 
     beers = db.execute("""
-    SELECT b.id, b.name, b.description, u.username, r.title, r.comment, r.rating, r.created
-    FROM review as r
-    INNER JOIN user as u
-        ON u.id == r.author_id
-    INNER JOIN beer as b
-        ON r.beer_id == b.id
-    GROUP BY b.id;
+        SELECT b.id, b.name, b.description, u.username, r.title, r.comment, r.rating, r.created
+        FROM review as r
+        INNER JOIN user as u
+            ON u.id == r.author_id
+        INNER JOIN beer as b
+            ON r.beer_id == b.id
+        GROUP BY b.id;
     """).fetchall()
 
     return render_template('review/index.html', route="review", beers=beers, reviews=reviews)
