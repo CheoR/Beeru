@@ -24,13 +24,11 @@ def index():
     """).fetchall()
 
     beers = db.execute("""
-    SELECT b.id, b.name, b.description, b.number_of_review, b.total_rating, u.username, r.title, r.comment, r.rating, r.created
-    FROM review as r
-    INNER JOIN user as u
-        ON u.id == r.author_id
-    INNER JOIN beer as b
-        ON r.beer_id == b.id
-    GROUP BY b.id;
+        SELECT b.*, SUM(r.rating) as total_rating, COUNT(rating) as total_reviews, ROUND(AVG(rating), 1) as average_rating
+        FROM BEER b
+        JOIN review r
+            ON b.id = r.beer_id
+        GROUP BY r.beer_id;
     """).fetchall()
     return render_template('page/index.html', route="home", beers=beers, reviews=reviews )
 
