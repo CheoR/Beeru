@@ -71,7 +71,7 @@ def index():
     ).fetchall()
 
     beers = db.execute("""
-    SELECT b.id, b.name, b.description, b.number_of_review, b.total_rating, u.username, r.title, r.comment, r.rating, r.created
+    SELECT b.id, b.name, b.description, u.username, r.title, r.comment, r.rating, r.created
     FROM review as r
     INNER JOIN user as u
         ON u.id == r.author_id
