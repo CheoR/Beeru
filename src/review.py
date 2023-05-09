@@ -99,10 +99,10 @@ def update(id):
         else:
             db = get_db()
             db.execute("""
-                    UPDATE review
-                    SET title = ?, comment = ?, rating = ?
-                    WHERE id = ?
-                """,
+                UPDATE review
+                SET title = ?, comment = ?, rating = ?
+                WHERE id = ?
+            """,
                 (title, comment, rating, id)
             )
             db.commit()
