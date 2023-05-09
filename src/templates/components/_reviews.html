@@ -50,9 +50,11 @@
             <form class="rounded-md w-24" action="{{ url_for('review.delete', id=review['id']) }}" method="POST">
               <input class="rounded-md w-full bg-red-300" type="submit" value="Delete">
             </form>
-            <form class="rounded-md w-24" action="{{ url_for('review.update', id=review['id']) }}" method="POST">
-              <input class="rounded-md w-full bg-green-300" type="submit" value="Update">
-            </form>
+            <div class="rounded-md w-24">
+              <a class="block rounded-md w-full bg-green-300 text-center" href="{{ url_for('review.update', id=review['id']) }}">
+                Update
+              </a>
+            </div>
           </div>
         {% endif %}
       </div>
