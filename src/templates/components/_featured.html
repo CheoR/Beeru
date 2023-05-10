@@ -5,17 +5,17 @@
     </p>
   </div>
   <p>
-    <a href="/review/{{featured.id}}" class="
-                      block
-            duration-300
-            hover:bg-teal-500
-            hover:font-semibold
-            hover:text-white
-            p-2
-            rounded-md
-            text-sm
-            transition
-            {{'bg-teal-500 text-white' if route == 'review' else ''}}
+    <a href="{{url_for('beer.index', id=featured['id'])}}" class="
+      block
+      duration-300
+      hover:bg-teal-500
+      hover:font-semibold
+      hover:text-white
+      p-2
+      rounded-md
+      text-sm
+      transition
+      {{'bg-teal-500 text-white' if route == 'review' else ''}}
 
     ">
       {{ featured.name }}

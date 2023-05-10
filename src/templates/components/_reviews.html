@@ -20,7 +20,11 @@
             rounded-md
             w-96
           ">
-        <p class="truncate">{{review.title}}</p>
+        <p class="truncate">
+          <a class="block rounded-md w-full truncate " href="{{ url_for('beer.index', id=review['beer_id']) }}">
+            {{ review.title }}
+          </a>
+        </p>
         <span>Reviewed: {{review.created.strftime('%Y-%m-%d')}}</span>
         <p>
           Rated {{review.rating}} of 5 by {{review.username}}

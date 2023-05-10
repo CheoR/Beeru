@@ -36,4 +36,8 @@ def create_app(test_config=None):
     app.register_blueprint(review.bp)
     app.add_url_rule('/', endpoint='review')
 
+    from . import beer
+    app.register_blueprint(beer.bp)
+    app.add_url_rule('/', endpoint='beer')
+
     return app

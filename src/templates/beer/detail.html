@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+beer detail
+{% endblock title %}
+
+{% block content %}
+<div>
+  {% with featured=featured, reviews=reviews %}
+  {% include '/components/_featured.html' %}
+  {% include '/components/_reviews.html' %}
+  {% endwith %}
+</div>
+{% endblock content %}

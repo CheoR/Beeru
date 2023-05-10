@@ -58,7 +58,7 @@ def index(): # create
             return redirect(url_for('review.index'))
 
     reviews = db.execute("""
-        SELECT r.id, r.title, r.comment, r.created, r.rating, u.username, r.author_id
+        SELECT r.id, r.title, r.beer_id, r.comment, r.created, r.rating, u.username, r.author_id
         FROM review r
         JOIN user u
             ON r.author_id = u.id

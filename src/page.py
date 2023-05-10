@@ -1,5 +1,6 @@
 from werkzeug.exceptions import abort
 from markupsafe import escape
+import random
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -13,7 +14,7 @@ bp = Blueprint('page', __name__)
 def index():
     db = get_db()
     reviews = db.execute("""
-        SELECT r.id, b.name as beer, u.username, r.title, r.comment, r.rating, r.created, r.author_id
+        SELECT r.id, b.name, u.username, r.title, r.comment, r.rating, r.created, r.author_id, r.beer_id
         FROM review as r
         INNER JOIN user as u
             ON u.id == r.author_id
@@ -30,7 +31,11 @@ def index():
             ON b.id = r.beer_id
         GROUP BY r.beer_id;
     """).fetchall()
-    return render_template('page/index.html', route="home", beers=beers, reviews=reviews )
+
+    featured = None
+    if beers is not None:
+        featured = random.choice(beers)
+    return render_template('page/index.html', route="home", beers=beers, featured=featured, reviews=reviews )
 
 @bp.route('/about')
 def about():
