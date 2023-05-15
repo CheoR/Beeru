@@ -7,7 +7,9 @@
 {% block content %}
 <div>
   {% with beers=beers, reviews=reviews %}
-    {% include '/components/forms/review.html' %}
+    {% if showForm %}
+      {% include '/components/forms/review.html' %}
+    {% endif %}
     {% include '/components/_reviews.html' %}
   {% endwith %}
 </div>

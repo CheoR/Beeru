@@ -37,7 +37,7 @@ def index():
         featured = random.choice(beers)
     return render_template(
         'page/index.html',
-        route="home", beers=beers, featured=featured, isListings=True, reviews=reviews
+        route="home", beers=beers, featured=featured, isListings=True, reviews=reviews, showForm=True,
     )
 
 @bp.route('/about')

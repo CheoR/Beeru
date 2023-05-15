@@ -29,7 +29,29 @@
         </p>
         <span>Reviewed: {{review.created.strftime('%Y-%m-%d')}}</span>
         <p>
-          Rated {{review.rating}} of 5 by {{review.username}}
+          Rated {{review.rating}} of 5 by 
+          {% if isListings %}
+          <span>author_id: {{review['author_id']}} </span>
+            <span>
+              <a href="{{ url_for('review.user_reviews', id=review['author_id']) }}" class="
+                block
+                duration-300
+                hover:bg-teal-500
+                hover:font-semibold
+                hover:text-white
+                p-2
+                rounded-md
+                text-sm
+                transition
+                w-24
+                {{'bg-teal-500 text-white' if route == 'beers' else ''}}
+              ">
+                {{review.username}}
+              </a>
+            </span>
+          {% else %}
+            {{review.username}}
+          {% endif %}
         </p>
         <p class="{{'truncate' if isListings }}">
           {{ review.comment }}

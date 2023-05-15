@@ -78,7 +78,9 @@ def index(): # create
         GROUP BY b.id;
     """).fetchall()
 
-    return render_template('review/index.html', route="review", beers=beers, reviews=reviews)
+    if(g.user is not None):
+        showForm = True
+    return render_template('review/index.html', route="review", showForm=showForm, beers=beers, reviews=reviews)
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
@@ -185,3 +187,31 @@ def detail(id):
     #     (beer_id, beer_id, id, id)
     # ).fetchall()
     return render_template('review/detail.html', isListings=False, reviews=reviews)
+
+@bp.route('/user_reviews/<int:id>', methods=('GET',))
+def user_reviews(id):
+    print(f"searching for reviews by user {id}")
+    db = get_db()
+
+    reviews = db.execute("""
+        SELECT r.id, r.title, r.beer_id, r.comment, r.created, r.rating, u.username, r.author_id
+        FROM review r
+        JOIN user u
+            ON r.author_id = u.id
+		WHERE u.id = ?
+        ORDER BY r.created DESC;
+    """,
+        (id,)
+    ).fetchall()
+
+    beers = db.execute("""
+        SELECT b.id, b.name, b.description, u.username, r.title, r.comment, r.rating, r.created
+        FROM review as r
+        INNER JOIN user as u
+            ON u.id == r.author_id
+        INNER JOIN beer as b
+            ON r.beer_id == b.id
+        GROUP BY b.id;
+    """).fetchall()
+
+    return render_template('review/index.html', route="review", beers=beers, reviews=reviews, showForm=False)
