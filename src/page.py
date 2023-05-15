@@ -35,7 +35,10 @@ def index():
     featured = None
     if beers is not None:
         featured = random.choice(beers)
-    return render_template('page/index.html', route="home", beers=beers, featured=featured, reviews=reviews )
+    return render_template(
+        'page/index.html',
+        route="home", beers=beers, featured=featured, isListings=True, reviews=reviews
+    )
 
 @bp.route('/about')
 def about():

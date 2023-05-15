@@ -1,7 +1,9 @@
 <div>
+  {% if listings %}
   <p>
     Recent Reviews
   </p>
+  {% endif %}
   <div class="
         flex
         flex-wrap
@@ -14,7 +16,7 @@
             bg-teal-200
             flex
             flex-col
-            h-40
+            {{ 'h-40' if isListings }}
             p-2
             justify-between
             rounded-md
@@ -29,7 +31,7 @@
         <p>
           Rated {{review.rating}} of 5 by {{review.username}}
         </p>
-        <p class="truncate">
+        <p class="{{'truncate' if isListings }}">
           {{ review.comment }}
         </p>
         {% if review.comment %}
