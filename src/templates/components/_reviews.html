@@ -1,8 +1,8 @@
 <div>
   {% if listings %}
-  <p>
-    Recent Reviews
-  </p>
+    <p>
+      Recent Reviews
+    </p>
   {% endif %}
   <div class="
         flex
@@ -34,8 +34,8 @@
         <p class="{{'truncate' if isListings }}">
           {{ review.comment }}
         </p>
-        {% if review.comment %}
-          <a href="review/{{review.id}}" class="
+        {% if isListings and review.comment and review.comment|length > 35 %}
+          <a href="{{ url_for('review.detail', id=review['id']) }}" class="
             block
             duration-300
             hover:bg-teal-500

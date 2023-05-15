@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ reviews[0].title }}
+{% endblock title %}
+
+{% block content %}
+<div>
+  {% with featured=reviews[0], isListings=isListings, review=reviews[0] %}
+    {% include '/components/_featured.html' %}
+    {% include '/components/_reviews.html' %}
+  {% endwith %}
+</div>
+{% endblock content %}

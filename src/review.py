@@ -118,3 +118,70 @@ def delete(id):
     db.execute('DELETE FROM review WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('review.index'))
+
+@bp.route('/<int:id>', methods=('GET',))
+def detail(id):
+    db = get_db()
+    reviews = db.execute("""
+        SELECT r.*, b.*,u.username, u.id, (
+            SELECT SUM(total_r.rating)
+            FROM review total_r
+            JOIN beer b
+                ON total_r.beer_id = b.id
+            WHERE b.id = r.beer_id
+        ) total_rating, (
+            SELECT COUNT(total_r.rating)
+            FROM review total_r
+            JOIN beer b
+                ON total_r.beer_id = b.id
+                WHERE b.id = r.beer_id
+        ) total_reviews, (
+            SELECT ROUND(AVG(rating), 1)
+            FROM review total_r
+            JOIN beer b
+                ON total_r.beer_id = b.id
+                WHERE b.id = r.beer_id
+        ) average_rating
+        FROM review r
+        JOIN beer b
+            ON r.beer_id = b.id
+        JOIN user u
+            ON r.author_id = u.id
+        WHERE r.id = ?;
+    """,
+        (id,)
+    ).fetchall()
+
+    # reviews = db.execute("""
+    #     SELECT r.*, u.username, b.abv, b.style, b.name, b.description, (
+    #         SELECT SUM(r.rating)
+    #         FROM review r
+    #         JOIN beer b
+    #             ON r.beer_id = b.id
+    #             WHERE b.id = ?
+    #     ) total_rating,
+    #     (
+    #         SELECT COUNT(r.rating)
+    #         FROM review r
+    #         JOIN beer b
+    #             ON r.beer_id = b.id
+    #             WHERE b.id = ?
+    #     ) total_reviews,
+    #     (
+    #         SELECT ROUND(AVG(rating), 1)
+    #         FROM review r
+    #         JOIN beer b
+    #             ON r.beer_id = b.id
+    #             WHERE b.id = ?
+    #     ) average_rating
+    #     FROM BEER b
+    #     JOIN review r
+    #         ON b.id = r.beer_id
+    #     JOIN user u
+    #         ON r.author_id = u.id
+    #     WHERE b.id = ?
+    #     ORDER BY r.created DESC;
+    # """,
+    #     (beer_id, beer_id, id, id)
+    # ).fetchall()
+    return render_template('review/detail.html', isListings=False, reviews=reviews)
