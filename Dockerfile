@@ -1,25 +1,32 @@
-# FROM python:3-alpine3.10
+FROM python:3.10
 
-# WORKDIR /app
+# ENV PATH $PATH:$HOME/.local/bin
+ENV PROJECT_DIR /src
 
-# COPY Pipfile Pipfile.lock /app/
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
 
-# COPY . /app
+# Turns off buffering for easier container logging
+# ENV PYTHONUNBUFFERED=1
 
-# EXPOSE 3000
+# Set the environment variable for Flask
+ENV FLASK_APP=src
 
-# CMD ["flask" "--app" "src" "run" "--debug"]
+# # Tell pipenv to create venv in the current directory
+ENV PIPENV_VENV_IN_PROJECT=1
 
-FROM python:3.10.11-alpine
-RUN pip install pipenv
-
-ENV PROJECT_DIR /usr/local/bin/src/app
+COPY . /${PROJECT_DIR}
 
 WORKDIR ${PROJECT_DIR}
 
-COPY Pipfile Pipfile.lock ${PROJECT_DIR}/
+RUN pip install pipenv
 
-# --system --deploy
-RUN pipenv install --deploy --ignore-pipfile
+RUN pipenv install --system --deploy --ignore-pipfile
 
-CMD ["flask" "--app" "src" "run" "--debug"]
+COPY . .
+
+EXPOSE 5000
+
+RUN flask init-db
+
+CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0"]
