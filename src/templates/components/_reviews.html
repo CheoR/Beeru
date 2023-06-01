@@ -6,19 +6,20 @@
   {% endif %}
   <div class="
         flex
-        flex-wrap
         gap-4
+        flex-wrap
         items-center
-        justify-items-center
+        justify-evenly
+        mt-4
       ">
     {% for review in reviews %}
       <div class="
-            bg-teal-200
+            bg-teal-300
             flex
             flex-col
-            {{ 'h-40' if isListings }}
+            {{ 'h-40' if isListings else 'h-96'}}
             p-2
-            justify-between
+            justify-start
             rounded-md
             w-96
           ">
@@ -27,33 +28,26 @@
             {{ review.title }}
           </a>
         </p>
-        <span>Reviewed: {{review.created.strftime('%Y-%m-%d')}}</span>
+        <p>Reviewed: {{review.created.strftime('%Y-%m-%d')}}</p>
         <p>
-          Rated {{review.rating}} of 5 by 
-          {% if isListings %}
-          <span>author_id: {{review['author_id']}} </span>
-            <span>
+          Rated {{review.rating}} of 5 by
               <a href="{{ url_for('review.user_reviews', id=review['author_id']) }}" class="
-                block
                 duration-300
                 hover:bg-teal-500
                 hover:font-semibold
                 hover:text-white
-                p-2
+                p-1
                 rounded-md
                 text-sm
+                text-center
                 transition
                 w-24
                 {{'bg-teal-500 text-white' if route == 'beers' else ''}}
               ">
                 {{review.username}}
               </a>
-            </span>
-          {% else %}
-            {{review.username}}
-          {% endif %}
         </p>
-        <p class="{{'truncate' if isListings }}">
+        <p class="{{'truncate' if isListings }} flex-grow">
           {{ review.comment }}
         </p>
         {% if isListings and review.comment and review.comment|length > 35 %}
