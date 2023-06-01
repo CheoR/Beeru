@@ -11,22 +11,20 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 # Set the environment variable for Flask
 ENV FLASK_APP=src
+ENV FLASK_ENV=development
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_DEBUG=True
 
-# # Tell pipenv to create venv in the current directory
-ENV PIPENV_VENV_IN_PROJECT=1
-
-COPY . /${PROJECT_DIR}
+COPY . ${PROJECT_DIR}
 
 WORKDIR ${PROJECT_DIR}
 
-RUN pip install pipenv
-
-RUN pipenv install --system --deploy --ignore-pipfile
+RUN pip install --upgrade pip
 
 COPY . .
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
-
 RUN flask init-db
 
-CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0"]
+CMD [ "flask", "run", "--host=0.0.0.0", "--debug", "--port=5000"]

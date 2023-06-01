@@ -1,7 +1,13 @@
 version: '3.3'
 services:
     beeru:
+        build:
+            context: .
         ports:
             - '5000:5000'
         container_name: beeru_cntr
         image: 'beeru:1'
+        environment:
+            FLASK_DEBUG: 1
+        volumes:
+            ['.:/src']
