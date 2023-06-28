@@ -3,11 +3,18 @@ services:
     beeru:
         build:
             context: .
+        entrypoint:
+            - flask
+            - run
+            - --host=0.0.0.0
+            - --debug
         ports:
             - '5000:5000'
         container_name: beeru_cntr
         image: 'beeru:1'
         environment:
             FLASK_DEBUG: 1
+            ENV FLASK_APP: src
+            # ENV FLASK_ENV: development
         volumes:
             ['.:/src']

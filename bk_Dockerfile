@@ -11,20 +11,20 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 # Set the environment variable for Flask
 ENV FLASK_APP=src
-ENV FLASK_ENV=development
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_DEBUG=True
+# ENV FLASK_ENV=development
+# ENV FLASK_RUN_HOST=0.0.0.0
+# ENV FLASK_DEBUG=True
 
 COPY . ${PROJECT_DIR}
 
 WORKDIR ${PROJECT_DIR}
 
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip --no-cache-dir && \
+    pip install -r requirements.txt
 
 COPY . .
-RUN pip install -r requirements.txt
 
 EXPOSE 5000
 RUN flask init-db
 
-CMD [ "flask", "run", "--host=0.0.0.0", "--debug", "--port=5000"]
+# CMD [ "flask", "run", "--host=0.0.0.0", "--port=5000"]
