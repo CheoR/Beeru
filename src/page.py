@@ -46,7 +46,16 @@ def about():
 
 @bp.route('/beers')
 def beer():
-    return render_template('page/beers.html', route="beers")
+    db = get_db()
+    beers = db.execute("""
+        SELECT b.*, SUM(r.rating) as total_rating, COUNT(rating) as total_reviews, ROUND(AVG(rating), 1) as average_rating
+        FROM BEER b
+        JOIN review r
+            ON b.id = r.beer_id
+        GROUP BY r.beer_id;
+    """)
+    
+    return render_template('page/beers.html', route="beers", beers=beers)
 
 @bp.app_errorhandler(404)
 def page_not_found(err):

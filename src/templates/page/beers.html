@@ -7,8 +7,58 @@
 {% block content %}
     <div>
         <!-- <h1 class="text-center">Index</h1> -->
-        <p>
-          Beers list
-        </p>
+        <div>
+            <p class="p-2 text-center text-6xl">
+                Beer List
+            </p>
+        </div>
+        <div class="
+            flex
+            gap-4
+            flex-wrap
+            items-center
+            justify-evenly
+            mt-4
+        ">
+        {% for beer in beers %}
+        <div class="
+            bg-teal-200
+            gap-4
+            h-48
+            items-center
+            mt-4
+            overflow-hidden
+            p-2
+            rounded-md
+            text-ellipsis
+            w-96
+
+        ">
+            <p class="truncate">
+                <a href="{{url_for('beer.index', id=beer.id)}}" class="
+                    block
+                    duration-300
+                    hover:bg-teal-500
+                    hover:font-semibold
+                    hover:text-white
+                    rounded-md
+                    text-sm
+                    text-2xl
+                    transition
+                    w-full
+                    truncate
+                ">
+                    {{ beer.name }}
+                </a>
+            </p>
+            <p>
+                {{ beer.total_reviews }} reviews ( {{ beer.average_rating }} average rating )
+            </p>
+            <p>
+              {{ beer.description }}
+            </p>
+        </div>
+        {% endfor %}
+        </div>
     </div>
 {% endblock content %}
